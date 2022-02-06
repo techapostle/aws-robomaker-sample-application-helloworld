@@ -24,9 +24,6 @@ import rospy
 
 
 class Rotator():
-
-
-
     def __init__(self):
         self._cmd_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
     
@@ -39,9 +36,11 @@ class Rotator():
         while not rospy.is_shutdown(): 
             if not keepGoing > 3:
                 self.twist.angular.z = 0.6
-            elif not keepGoing > 12:
+            elif not keepGoing > 16:
                 self.twist.linear.x = 0.4
                 self.twist.angular.z = 0.0
+            elif keepGoing >= 16:
+                self.twist.linear.x = 0.0
 
             rospy.loginfo('Moving robot: %s', self.twist)
             r.sleep()
